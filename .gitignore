@@ -7,4 +7,6 @@ myarchlinuxhost
 mylinuxhost
 certs
 nano_docker.zip
-
+Images/*
+Installation/*
+Documents/*
