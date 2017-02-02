@@ -1,0 +1,38 @@
+{
+    "variables": {
+        "imagepath": "../../../Images",
+        "imagefile": "boot2docker_v1.13.0-rc7.iso",
+        "sha256checksum": "a1e70859e3dc62348151249e165a7c8256d4be888ac1999b068c0193e97e6d6b"
+    },
+    "builders": [{
+        "type": "virtualbox-iso",
+        "iso_url": "{{user `imagepath`}}/{{user `imagefile`}}",
+        "iso_checksum_type": "sha256",
+        "iso_checksum": "{{user `sha256checksum`}}",
+        "boot_wait": "5s",
+        "guest_additions_mode": "attach",
+        "guest_os_type": "Linux_64",
+        "ssh_username": "docker",
+        "ssh_password": "tcuser",
+        "shutdown_command": "sudo poweroff"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "mkfs.ext4 -F -L boot2docker-data /dev/sda",
+            "sudo mkdir /mnt/sda",
+            "sudo mount /dev/sda /mnt/sda",
+            "sudo mkdir -p /mnt/sda/var/lib/boot2docker",
+            "touch /tmp/profile",
+            "sudo mv /tmp/profile /mnt/sda/var/lib/boot2docker/profile",
+            "sudo chown root:root /mnt/sda/var/lib/boot2docker/profile",
+            "sync"
+        ]
+    }],
+    "post-processors": [[{
+        "type": "vagrant",
+        "include": ["{{user `imagepath`}}/{{user `imagefile`}}"],
+        "vagrantfile_template": "vagrantfile.tpl",
+        "output": "boot2docker_{{.Provider}}.box"
+    }]]
+}

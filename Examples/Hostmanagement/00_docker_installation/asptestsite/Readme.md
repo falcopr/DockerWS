@@ -1,0 +1,1 @@
+Sample from https://github.com/Microsoft/aspnet-docker/blob/master/4.6.2/sample/Dockerfile

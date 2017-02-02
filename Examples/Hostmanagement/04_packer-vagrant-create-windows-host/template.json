@@ -1,0 +1,97 @@
+{
+    "builders": [{
+        "type": "virtualbox-iso",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985"],
+            ["modifyvm", "{{.Name}}", "--memory", "2048"],
+            ["modifyvm", "{{.Name}}", "--vram", "36"],
+            ["modifyvm", "{{.Name}}", "--cpus", "2"],
+            ["modifyvm", "{{.Name}}", "--hardwareuuid", "02f110e7-369a-4bbc-bbe6-6f0b6864ccb6"]
+        ],
+        "guest_os_type": "Windows2012_64",
+        "iso_url": "{{user `imagepath`}}/{{user `imagefile`}}",
+        "iso_checksum": "{{ user `sha1checksum` }}",
+        "iso_checksum_type": "sha1",
+        "communicator": "winrm",
+        "disk_size": 61440,
+        "winrm_username": "vagrant",
+        "winrm_password": "vagrant",
+        "winrm_port": 55985,
+        "winrm_timeout": "10m",
+        "guest_additions_mode": "disable",
+        "headless": "{{ user `headless` }}",
+        "shutdown_command": "shutdown /r /t 10 /f /c \"Packer Shutdown\"",
+        "shutdown_timeout": "1h",
+        "post_shutdown_delay": "90s",
+        "boot_wait": "20m",
+        "floppy_files": [
+            "virtualbox\\Autounattend.xml",
+            "virtualbox\\nano_create.ps1",
+            "nano_cleanup.ps1",
+            "nano_cleanup_after_reboot.ps1",
+            "SetupComplete.cmd",
+            "postunattend.xml"
+        ]
+    }, {
+        "type": "hyperv-iso",
+        "switch_name": "internal_switch",
+        "vm_name": "nano",
+        "iso_url": "{{user `imagepath`}}/{{user `imagefile`}}",
+        "iso_checksum": "{{ user `sha1checksum` }}",
+        "iso_checksum_type": "sha1",
+        "communicator": "winrm",
+        "disk_size": 61440,
+        "winrm_username": "vagrant",
+        "winrm_password": "vagrant",
+        "winrm_timeout": "10m",
+        "guest_additions_mode": "disable",
+        "headless": "{{ user `headless` }}",
+        "shutdown_command": "shutdown /r /t 10 /f /c \"Packer Shutdown\"",
+        "shutdown_timeout": "1h",
+        "post_shutdown_delay": "90s",
+        "boot_wait": "20m",
+        "cpu": 2,
+        "ram_size": 2048,
+        "floppy_files": [
+            "hyperv\\Autounattend.xml",
+            "hyperv\\nano_create.ps1",
+            "nano_cleanup.ps1",
+            "nano_cleanup_after_reboot.ps1",
+            "SetupComplete.cmd",
+            "postunattend.xml"
+        ]
+    }],
+    "provisioners": [{
+        "type": "file",
+        "source": "nano_docker.zip",
+        "destination": "c:\\Windows\\setup\\docker\\docker.zip"
+    }, {
+        "type": "file",
+        "source": "nano_daemon.json",
+        "destination": "C:\\ProgramData\\docker\\config\\daemon.json"
+    }, {
+        "type": "file",
+        "source": "certs\\",
+        "destination": "c:\\ProgramData\\docker\\certs.d"
+    }, {
+        "type": "powershell",
+        "script": "nano_install_docker.ps1"
+    }, {
+        "type": "windows-shell",
+        "inline": ["shutdown /s /t 0"]
+    }],
+    "post-processors": [
+        [{
+            "type": "vagrant",
+            "keep_input_artifact": true,
+            "output": "WindowsServer2016Nano-{{.Provider}}.box",
+            "vagrantfile_template": "vagrantfile.tpl"
+        }]
+    ],
+    "variables": {
+        "imagepath": "../../../Images",
+        "imagefile": "en_windows_server_2016_x64_eval.iso",
+        "headless": "false",
+        "sha1checksum": "772700802951B36C8CB26A61C040B9A8DC3816A3"
+    }
+}

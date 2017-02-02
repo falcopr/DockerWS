@@ -1,0 +1,8 @@
+# the default is not to use systemd for cgroups because the delegate issues still
+# exists and systemd currently does not support the cgroup feature set required
+# for containers run by docker
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd
+Restart=always
+RestartSec=30
