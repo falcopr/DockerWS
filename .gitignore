@@ -10,3 +10,5 @@ nano_docker.zip
 Images/*
 Installation/*
 Documents/*
+node_modules/*
+**/node_modules/*
