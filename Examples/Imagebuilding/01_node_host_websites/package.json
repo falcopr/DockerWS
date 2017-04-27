@@ -1,0 +1,59 @@
+{
+  "name": "angular_testproject",
+  "version": "1.0.0",
+  "description": "Showcase of a angular 4 project",
+  "main": "index.js",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/falcoprescher/DockerWS.git"
+  },
+  "scripts": {
+    "compile": "node clean.js && tsc -p tsconfig.json",
+    "build": "webpack",
+    "rebuild": "npm run clean && npm run build",
+    "serve": "node webserver.js",
+    "clean": "node clean.js",
+    "create:image": "docker build -t \"falco/angular4test:latest\" -f ./Dockerfile ./",
+    "start:temp:container:interactive": "docker run --rm -it -p 8080:8080 --entrypoint \"/bin/sh\" --name angular4test_container \"falco/angular4test:latest\"",
+    "start:container": "docker run -d -p 8080:8080 --name angular4test_container \"falco/angular4test:latest\"",
+    "restart:container": "docker start angular4test_container",
+    "stop:all:containers": "docker stop $(docker ps -a -q)",
+    "clean:all:containers": "docker rm $(docker ps -a -q)",
+    "remove:all:images": "docker rmi $(docker images -q)",
+    "remove:image": "docker rmi \"falco/angular4test:latest\"",
+    "remove:container": "docker rm angular4test_container",
+    "stop:container": "docker stop angular4test_container",
+    "deploy:docker": "npm run rebuild && npm run create:image && npm run start:container",
+    "setup:development": "npm install -g typescript@latest webpack@latest"
+  },
+  "keywords": [
+    "angular",
+    "docker"
+  ],
+  "author": "Falco Prescher",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/animations": "^4.0.1",
+    "@angular/common": "^4.0.1",
+    "@angular/compiler": "^4.0.1",
+    "@angular/compiler-cli": "^4.0.1",
+    "@angular/core": "^4.0.1",
+    "@angular/forms": "^4.0.1",
+    "@angular/http": "^4.0.1",
+    "@angular/platform-browser": "^4.0.1",
+    "@angular/platform-browser-dynamic": "^4.0.1",
+    "@angular/platform-server": "^4.0.1",
+    "@angular/router": "^4.0.1",
+    "jasmine": "^2.5.3",
+    "rxjs": "^5.3.0",
+    "shelljs": "^0.7.7",
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3",
+    "zone.js": "^0.8.4"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

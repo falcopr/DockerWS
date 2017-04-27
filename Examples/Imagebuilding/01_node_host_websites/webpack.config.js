@@ -1,9 +1,7 @@
 let path = require('path');
 
 module.exports = {
-    entry: {
-        "angular_testproject" : "./src/main.ts"
-    },
+    entry: "./src/main.ts",
     devtool: "source-map",
     output: {
         filename: 'atp_bundle.js',
