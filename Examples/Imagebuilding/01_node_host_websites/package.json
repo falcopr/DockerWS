@@ -8,10 +8,12 @@
     "url" : "https://github.com/falcoprescher/DockerWS.git"
   },
   "scripts": {
+    "preinstall": "npm install -g tsc@2.2.2 tslint@5.2.0 webpack@2.5.1",
     "compile": "node clean.js && tsc -p tsconfig.json",
     "build": "webpack",
+    "watch": "webpack --watch",
     "rebuild": "npm run clean && npm run build",
-    "serve": "node webserver.js",
+    "serve": "node server.js",
     "clean": "node clean.js",
     "create:image": "docker build -t \"falco/angular4test:latest\" -f ./Dockerfile ./",
     "start:temp:container:interactive": "docker run --rm -it -p 8080:8080 --entrypoint \"/bin/sh\" --name angular4test_container \"falco/angular4test:latest\"",
@@ -23,8 +25,7 @@
     "remove:image": "docker rmi \"falco/angular4test:latest\"",
     "remove:container": "docker rm angular4test_container",
     "stop:container": "docker stop angular4test_container",
-    "deploy:docker": "npm run rebuild && npm run create:image && npm run start:container",
-    "setup:development": "npm install -g typescript@latest webpack@latest"
+    "deploy:docker": "npm run rebuild && npm run create:image && npm run start:container"
   },
   "keywords": [
     "angular",
