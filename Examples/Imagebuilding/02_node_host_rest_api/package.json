@@ -1,0 +1,32 @@
+{
+  "name": "restapi",
+  "version": "1.0.0",
+  "description": "A test rest api in node being containerized",
+  "main": "server.js",
+  "scripts": {
+    "serve": "node server.js",
+    "create:image": "docker build -t \"falco/restapi:latest\" -f ./Dockerfile ./",
+    "start:temp:container:interactive": "docker run --rm -it -p 8081:8080 --entrypoint \"/bin/sh\" --name restapi_container \"falco/restapi:latest\"",
+    "start:container": "docker run -d -p 8081:8080 --name restapi_container \"falco/restapi:latest\"",
+    "restart:container": "docker start restapi_container",
+    "stop:all:containers": "docker stop $(docker ps -a -q)",
+    "clean:all:containers": "docker rm $(docker ps -a -q)",
+    "remove:all:images": "docker rmi $(docker images -q)",
+    "remove:image": "docker rmi \"falco/restapi:latest\"",
+    "remove:container": "docker rm restapi_container",
+    "stop:container": "docker stop restapi_container",
+    "deploy:docker": "npm run create:image && npm run start:container"
+  },
+  "keywords": [
+    "API",
+    "REST",
+    "NodeJS",
+    "Express",
+    "Docker"
+  ],
+  "author": "Falco Prescher",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

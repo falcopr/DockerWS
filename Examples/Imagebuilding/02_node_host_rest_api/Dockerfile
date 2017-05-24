@@ -2,19 +2,19 @@ FROM node:7.9.0-alpine
 MAINTAINER Falco Prescher
 
 LABEL version="0.1"
-LABEL description="Hosting a simple Angular4 app with express"
+LABEL description="Hosting a simple REST API with express"
 
 ENV "PROJECTDIR"="/app"
 
 WORKDIR $PROJECTDIR
 
-COPY wwwroot $PROJECTDIR/wwwroot
+COPY app $PROJECTDIR/app
 COPY server.js $PROJECTDIR
 COPY package.json $PROJECTDIR
 
 RUN ["npm", "install", "--only=prod"]
 
-EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["npm"]
 
