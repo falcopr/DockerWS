@@ -6,8 +6,8 @@
   "scripts": {
     "serve": "node server.js",
     "create:image": "docker build -t \"falco/restapi:latest\" -f ./Dockerfile ./",
-    "start:temp:container:interactive": "docker run --rm -it -p 8081:8080 --entrypoint \"/bin/sh\" --name restapi_container \"falco/restapi:latest\"",
-    "start:container": "docker run -d -p 8081:8080 --name restapi_container \"falco/restapi:latest\"",
+    "start:temp:container:interactive": "docker run --rm -it -p 8081:8081 --entrypoint \"/bin/sh\" --name restapi_container \"falco/restapi:latest\"",
+    "start:container": "docker run -d -p 8081:8081 --name restapi_container \"falco/restapi:latest\"",
     "restart:container": "docker start restapi_container",
     "stop:all:containers": "docker stop $(docker ps -a -q)",
     "clean:all:containers": "docker rm $(docker ps -a -q)",

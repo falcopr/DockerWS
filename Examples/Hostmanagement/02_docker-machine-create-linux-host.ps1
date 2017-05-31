@@ -1,6 +1,10 @@
+choco install docker docker-machine
+
 # Erstellung eines Linux-Hosts in einer Virtual Machine über die docker-machine
 docker-machine create --driver virtualbox mylinuxcontainerhost
-docker-machine create --driver hypervm mylinuxcontainerhost
+docker-machine create --driver hyperv mylinuxcontainerhost
+# docker-machine create --driver hyperv --hyperv-virtual-switch "External virtual switch" linuxhost
+# https://docs.docker.com/machine/drivers/hyper-v/#4-create-the-nodes-with-docker-machine-and-the-microsoft-hyper-v-driver
 
 # Starten des Linux-Docker-Hosts
 docker-machine start mylinuxcontainerhost
