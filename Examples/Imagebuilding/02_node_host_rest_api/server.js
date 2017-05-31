@@ -1,9 +1,4 @@
-let express = require('express'),
-    path = require('path'),
-    app = express(),
-    port = 8080;
-
-app.use(express.static(path.join(__dirname, 'wwwroot')))
-app.listen(port, () => {
-  console.log(`Rest API listening on port ${port}!`);
-});
+const WebApi = require('./app/webapi.js');
+const webApiServer = new WebApi(8081);
+webApiServer.configure();
+webApiServer.start();
