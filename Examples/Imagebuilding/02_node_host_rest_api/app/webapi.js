@@ -11,6 +11,7 @@ class WebAPI {
     }
 
     configure() {
+        // Routing: GET /api/helloworld
         this.webApiRouter.get('/helloworld', (req, res) => {
             res.setHeader('Content-Type', 'application/json');
             res.send({
@@ -19,11 +20,13 @@ class WebAPI {
             })
         });
 
+        // Routing: GET /api
         this.webApiRouter.get('/', (req, res) => {
             res.setHeader('Content-Type', 'text/plain');
             res.send('WebAPI Router works!');
         })
 
+        // Routing: GET /
         this.app.get('/', (req, res) => {
             res.setHeader('Content-Type', 'text/plain');
             res.send('Express works!')

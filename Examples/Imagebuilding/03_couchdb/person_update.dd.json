@@ -1,0 +1,9 @@
+{
+  "_id" : "_design/person",
+  "_rev": "1-90af291f6e237c5f9e4fc9d02b2fec90",
+  "views" : {
+    "person" : {
+      "map" : "function(doc) { if (doc.type === 'person') { emit(doc._id, doc)} }"
+    }
+  }
+}
