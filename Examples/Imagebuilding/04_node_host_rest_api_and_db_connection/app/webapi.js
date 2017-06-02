@@ -1,6 +1,7 @@
 let express = require('express'),
     app = express(),
-    defaultPort = 8080;
+    defaultPort = 8080,
+    PersonRepository = require('./personRepository');
 
 class WebAPI {
     constructor(port) {
@@ -8,6 +9,7 @@ class WebAPI {
         this.app = app;
         this.express = express;
         this.webApiRouter = this.express.Router();
+        this.personRepository = new PersonRepository()
     }
 
     configure() {
@@ -18,6 +20,14 @@ class WebAPI {
                 message: 'Hello World with Docker & Express',
                 querystring: req.query
             })
+        });
+
+        this.webApiRouter.get('/person', (req, res) => {
+            res.setHeader('Content-Type', 'application/json');
+            
+            this.personRepository.get()
+                .then(persons => res.send(persons))
+                .catch(err => console.log(err));
         });
 
         // Routing: GET /api
