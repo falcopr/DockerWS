@@ -5,12 +5,7 @@ LABEL version="0.1"
 LABEL description="Hosting a CouchDB"
 
 # EXPOSE 5984 4369 9100
-
-USER couchdb
-
-RUN chown -R couchdb:couchdb "/opt/couchdb/data"
-
-VOLUME ["/opt/couchdb/data"]
+# VOLUME ["/opt/couchdb/data"]
 
 ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
 CMD ["/opt/couchdb/bin/couchdb"]
