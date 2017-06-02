@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  angular_client:
+    build:
+      context: .
+      dockerfile: ./05_node_host_websites_and_rest_api_connection/Dockerfile
+    image: falco/angular4test:latest
+    ports:
+      - "8080:8080"
+    logging:
+      driver: json-file
+  restapi_server:
+    image: falco/restapi:latest
+    build:
+      context: .
+      dockerfile: ./04_node_host_rest_api_and_db_connection/Dockerfile
+    ports:
+      - "8081:8081"
+    logging:
+      driver: json-file
+  couchdb_server:
+    image: falco/couchdb:latest
+    build:
+      context: .
+      dockerfile: ./03_couchdb/Dockerfile
+    ports:
+      - "8082:5984"
+    logging:
+      driver: json-file
+
