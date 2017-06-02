@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "declaration": false,
+    "noEmitHelpers": false,
+    "lib": ["es6", "dom"],
+    "outDir": "wwwroot/app",
+    "rootDir": "src",
+    "noImplicitAny": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "esm"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { 
+    "rewriteTsconfig": false 
+  }
+}
