@@ -1,7 +1,7 @@
 let express = require('express'),
     app = express(),
     defaultPort = 8080,
-    PersonRepository = require('./personRepository');
+    PersonRepository = require('./personrepository');
 
 class WebAPI {
     constructor(port) {

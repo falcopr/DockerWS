@@ -5,7 +5,7 @@ import 'reflect-metadata';
 
 @Injectable()
 export class PersonService {
-    private url: string = "http://localhost:8081/api/person";
+    private url: string = "http://192.168.0.147:8081/api/person";
 
     constructor(private http: Http) {
     }
