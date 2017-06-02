@@ -6,6 +6,15 @@ $containerName = "couchdb_container"
 $port=8082
 $containerPortMapping="${port}:5984"
 
+# $scriptpath=${PSScriptRoot}
+# $unixyfiedscriptpath="/" + (($scriptpath -replace "\\","/") -replace ":","").Trim("/")
+# $unixyfieddriveletter=($unixyfiedscriptpath -replace "^/(.*?)/(.*?)$", '/$1/').ToLower()
+# $resultingscriptpath=($unixyfieddriveletter + ($unixyfiedscriptpath -replace "^/(.*?)/(.*?)$", '$2'))
+# $datapath = $resultingscriptpath
+# $datapath = "/c/tmp"
+
+# Write-Host $resultingscriptpath
+
 switch ($command) {
     "create:image" {
         docker build -t $imageName -f ./Dockerfile ./
@@ -41,9 +50,9 @@ switch ($command) {
         }
     }
     "start:container" {
-        docker run -d -p $containerPortMapping --name $containerName -v "./data:/opt/couchdb/data" $imageName
+        docker run -d -p $containerPortMapping --name $containerName $imageName
     }
     Default {
-        docker run -d -p $containerPortMapping --name $containerName -v "./data:/opt/couchdb/data" $imageName
+        docker run -d -p $containerPortMapping --name $containerName $imageName
     }
 }
